@@ -3,6 +3,15 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+const API_BASE = import.meta.env.MODE === 'production' 
+  ? 'https://zhi-production.up.railway.app' 
+  : '';
+
+const api = axios.create({
+  baseURL: API_BASE,
+  withCredentials: true // 確保跨網域傳遞 Cookie
+});
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +24,8 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get('/api/auth/me', { withCredentials: true });
+      //const response = await axios.get('/api/auth/me', { withCredentials: true });
+      const response = await api.get('/api/auth/me');
       if (response.data.success) {
         setUser(response.data.data);
       }
@@ -30,12 +40,14 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post('/api/auth/register', {
+      //const response = await axios.post('/api/auth/register', {
+      const response = await api.post('/api/auth/register', {
         username,
         email,
         password,
         confirmPassword,
-      }, { withCredentials: true });
+     // }, { withCredentials: true });
+     });
 
       if (response.data.success) {
         setUser(response.data.data);
@@ -54,10 +66,12 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.post('/api/auth/login', {
+      //const response = await axios.post('/api/auth/login', {
+      const response = await api.post('/api/auth/login', {
         username,
         password,
-      }, { withCredentials: true });
+     // }, { withCredentials: true });
+      });
 
       if (response.data.success) {
         setUser(response.data.data);
@@ -74,7 +88,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('/api/auth/logout', {}, { withCredentials: true });
+      //await axios.post('/api/auth/logout', {}, { withCredentials: true });
+      await api.post('/api/auth/logout');
       setUser(null);
     } catch (err) {
       console.error('Logout error:', err);

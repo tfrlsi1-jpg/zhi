@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) =>{
 
   const BACKEND_URL = 'https://zhi-production.up.railway.app';
 
-  const API_TARGET = BACKEND_URL || process.env.VITE_API_URL || env.VITE_API_URL || 'http://localhost:3001';
+  const API_TARGET =  process.env.VITE_API_URL || env.VITE_API_URL || BACKEND_URL || 'http://localhost:3001';
 
   console.log('--- Current API URL:', env.VITE_API_URL);
   console.log('--- 🛡️ Target API Debugging:', API_TARGET);
