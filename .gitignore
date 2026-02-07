@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+/.pnp
+.pnp.js
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Production
+/build
+/dist
+
+# Misc
+.DS_Store
+*.pem
+.vscode
+.idea
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database
+*.sql.bak
+
+# IDE
+.code-workspace

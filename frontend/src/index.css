@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply antialiased;
+}
+
+html, body, #root {
+  @apply w-full h-full;
+}
+
+body {
+  @apply bg-zhi-dark text-zhi-text;
+}
+
+/* Custom component classes */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-full transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-zhi-border hover:bg-zhi-hover text-zhi-text font-semibold rounded-full transition-colors duration-200;
+  }
+
+  .btn-ghost {
+    @apply text-zhi-secondary hover:text-orange-600 hover:bg-zhi-hover/50 rounded-full px-3 py-2 transition-colors duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-zhi-darker border border-zhi-border rounded-xl text-zhi-text placeholder-zhi-secondary focus:outline-none focus:border-orange-600 focus:ring-1 focus:ring-orange-600 transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-zhi-dark border border-zhi-border rounded-xl overflow-hidden transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply hover:bg-zhi-hover hover:border-orange-600/30;
+  }
+
+  .post-card {
+    @apply card card-hover p-4 cursor-pointer;
+  }
+
+  .avatar {
+    @apply w-12 h-12 rounded-full bg-orange-600 flex items-center justify-center font-bold text-white;
+  }
+
+  .stat {
+    @apply text-zhi-secondary text-sm;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-zhi-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zhi-border rounded-full hover:bg-orange-600;
+}
+
+/* Animation utilities */
+.animate-heart {
+  @apply animate-heartBeat;
+}
