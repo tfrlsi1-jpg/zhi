@@ -15,9 +15,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend server is running on port ${PORT}`);
-});
 
 // Middleware
 app.use(cors({
@@ -61,7 +58,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🟠 Zhi server running on port ${PORT}`);
-  console.log(`Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Backend server is running on port ${PORT}`);
 });
+
+//app.listen(PORT, () => {
+//  console.log(`🟠 Zhi server running on port ${PORT}`);
+//  console.log(`Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
+//});
