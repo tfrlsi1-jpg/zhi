@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { api } from '../../lib/api';
 import { useAuth } from '../../hooks/useAuth';
 
 export const PostForm = ({ onPostCreated }) => {
@@ -33,14 +33,10 @@ export const PostForm = ({ onPostCreated }) => {
     setError(null);
 
     try {
-      const response = await axios.post(
-        '/api/posts',
-        {
-          content: content.trim(),
-          image: image || null,
-        },
-        { withCredentials: true }
-      );
+      const response = await api.post('/api/posts', {
+        content: content.trim(),
+        image: image || null,
+      });
 
       if (response.data.success) {
         setContent('');

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import { api } from '../../lib/api';
 import { useAuth } from '../../hooks/useAuth';
 
 export const PostCard = ({ post, onUpdate, onDelete }) => {
@@ -18,13 +18,13 @@ export const PostCard = ({ post, onUpdate, onDelete }) => {
     setIsLiking(true);
     try {
       if (post.liked) {
-        await axios.delete(`/api/likes/${post.id}`, { withCredentials: true });
+      await api.delete(`/api/likes/${post.id}`);
         onUpdate(post.id, {
           liked: false,
           like_count: (post.like_count || 0) - 1,
         });
       } else {
-        await axios.post(`/api/likes/${post.id}`, {}, { withCredentials: true });
+        await api.post(`/api/likes/${post.id}`);
         onUpdate(post.id, {
           liked: true,
           like_count: (post.like_count || 0) + 1,
@@ -42,13 +42,13 @@ export const PostCard = ({ post, onUpdate, onDelete }) => {
     setIsRetweeting(true);
     try {
       if (post.retweeted) {
-        await axios.delete(`/api/retweets/${post.id}`, { withCredentials: true });
+        await api.delete(`/api/retweets/${post.id}`);
         onUpdate(post.id, {
           retweeted: false,
           retweet_count: (post.retweet_count || 0) - 1,
         });
       } else {
-        await axios.post(`/api/retweets/${post.id}`, {}, { withCredentials: true });
+        await api.post(`/api/retweets/${post.id}`);
         onUpdate(post.id, {
           retweeted: true,
           retweet_count: (post.retweet_count || 0) + 1,
@@ -63,7 +63,7 @@ export const PostCard = ({ post, onUpdate, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/posts/${post.id}`, { withCredentials: true });
+      await api.delete(`/api/posts/${post.id}`);
       onDelete(post.id);
     } catch (err) {
       console.error('Delete error:', err);

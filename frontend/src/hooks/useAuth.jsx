@@ -1,18 +1,11 @@
 import { useState, useContext, createContext, useEffect } from 'react';
-import axios from 'axios';
+import { api } from '../lib/api';
 
 const AuthContext = createContext();
 
 //const isProduction = window.location.hostname !== 'localhost';
 
-const API_BASE = import.meta.env.MODE === 'production' 
-  ? 'https://zhi-production.up.railway.app' 
-  : '';
-
-const api = axios.create({
-  baseURL: API_BASE,
-  withCredentials: true // 確保跨網域傳遞 Cookie
-});
+// Uses shared `api` instance from src/lib/api.js
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);

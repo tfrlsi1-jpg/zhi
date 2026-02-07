@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import { api } from '../lib/api';
 
 export const useFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -10,12 +10,11 @@ export const useFeed = () => {
   const fetchFeed = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('/api/posts/feed', {
+      const response = await api.get('/api/posts/feed', {
         params: {
           limit: 20,
           offset: 0,
         },
-        withCredentials: true,
       });
 
       if (response.data.success) {
