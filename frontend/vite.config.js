@@ -4,13 +4,18 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) =>{
   const env = loadEnv(mode, process.cwd(), '');
 
+  const API_TARGET = zhi-production.up.railway.app || process.env.VITE_API_URL || env.VITE_API_URL || 'http://localhost:3001';
+
+  console.log('--- Current API URL:', env.VITE_API_URL);
+  console.log('--- 🛡️ Target API Debugging:', API_TARGET);
+
   return{
     plugins: [react()],
     server: {
       port: 5173,
       proxy: {
         '/api': {
-          target: env.VITE_API_URL || 'http://localhost:3001',
+          target: API_TARGET || env.VITE_API_URL || 'http://localhost:3001',
           changeOrigin: true,
         },
       },
@@ -21,7 +26,7 @@ export default defineConfig(({ mode }) =>{
         allowedHosts: true, // 防止域名被擋掉
         proxy: {           // 轉發 API 請求到後端
           '/api': {
-            target: env.VITE_API_URL || 'http://localhost:3001',
+            target: API_TARGET || env.VITE_API_URL || 'http://localhost:3001',
             changeOrigin: true,
           },
         },
