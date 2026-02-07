@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+//const isProduction = window.location.hostname !== 'localhost';
+
 const API_BASE = import.meta.env.MODE === 'production' 
   ? 'https://zhi-production.up.railway.app' 
   : '';

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
-import bodyParser from 'body-parser';
+// body-parser not needed; Express has built-in parsers
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.js';
@@ -17,6 +17,16 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 app.set('trust proxy', 1);
 
+const isProd = process.env.NODE_ENV === 'production';
+
+if (isProd && !process.env.FRONTEND_URL) {
+  console.error('Missing FRONTEND_URL in production — CORS will block cross-origin requests if not configured.');
+}
+
+if (isProd && !process.env.SESSION_SECRET) {
+  console.error('Missing SESSION_SECRET in production — using insecure default session secret.');
+}
+
 // Middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -31,11 +41,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    //secure: process.env.NODE_ENV === 'production',
-    //sameSite: 'lax',
-    secure: true, 
+    secure: isProd,
     // 跨網域存取必須改為 'none'，否則 Cookie 傳不過去
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',    
+    sameSite: isProd ? 'none' : 'lax',    
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   },
 }));
