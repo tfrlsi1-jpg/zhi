@@ -44,6 +44,7 @@ export const HomePage = () => {
             error={error}
             onPostUpdate={updatePost}
             onPostDelete={deletePost}
+            onPostAdd={addPost}
           />
         </div>
       </div>

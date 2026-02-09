@@ -45,17 +45,20 @@ export const useFeed = () => {
   }, [fetchFeed]);
 
   const addPost = (newPost) => {
-    setPosts([newPost, ...posts]);
+    // Use functional update to avoid stale closures
+    setPosts((prev) => [newPost, ...prev]);
   };
 
   const updatePost = (postId, updates) => {
-    setPosts(posts.map(post =>
-      post.id === postId ? { ...post, ...updates } : post
-    ));
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, ...updates } : post
+      )
+    );
   };
 
   const deletePost = (postId) => {
-    setPosts(posts.filter(post => post.id !== postId));
+    setPosts((prev) => prev.filter((post) => post.id !== postId));
   };
 
   return {

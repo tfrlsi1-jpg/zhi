@@ -1,6 +1,6 @@
 import { PostCard } from './PostCard';
 
-export const PostFeed = ({ posts, isLoading, error, onPostUpdate, onPostDelete }) => {
+export const PostFeed = ({ posts, isLoading, error, onPostUpdate, onPostDelete, onPostAdd }) => {
   if (error) {
     return (
       <div className="card p-6 text-center text-red-500">
@@ -39,6 +39,7 @@ export const PostFeed = ({ posts, isLoading, error, onPostUpdate, onPostDelete }
           post={post}
           onUpdate={onPostUpdate}
           onDelete={onPostDelete}
+          onPostAdd={onPostAdd}
         />
       ))}
     </div>

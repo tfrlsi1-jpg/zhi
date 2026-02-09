@@ -9,8 +9,11 @@ router.post('/:postId', isAuthenticated, async (req, res) => {
   try {
     const { postId } = req.params;
     const userId = req.session.userId;
+    const content = req.body?.content ?? null; // optional quote content
 
-    const result = await retweetPost(userId, postId);
+    // If content is provided, create a quote-retweet post with that content
+    // Note: retweetPost will also insert an entry into `posts` to represent the retweet
+    const result = await retweetPost(userId, postId, content);
 
     if (!result) {
       return res.status(409).json({ success: false, error: 'Already retweeted this post' });
@@ -19,6 +22,7 @@ router.post('/:postId', isAuthenticated, async (req, res) => {
     res.status(201).json({
       success: true,
       message: 'Post retweeted',
+      data: result.retweetPost || null,
     });
   } catch (err) {
     console.error('Retweet error:', err);
